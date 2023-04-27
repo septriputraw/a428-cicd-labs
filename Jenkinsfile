@@ -1,11 +1,13 @@
 // install nodejs and build  app using scripted pipeline 
 
 node {
-    docker {
-            image 'node:lts-bullseye-slim' 
-            args '-p 3000:3000' 
+    withDockerContainer(args: '-p 3000:3000', image: 'node:16-buster-slim') {
+        // inside the container
+        stage('Build') {
+            sh 'npm install'
         }
-    stage('Build') {
-        sh 'npm install'
     }
+    // stage('Build') {
+    //     sh 'npm install'
+    // }
 }
