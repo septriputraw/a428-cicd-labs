@@ -1,10 +1,10 @@
 // install nodejs and build  app using scripted pipeline 
 
 node {
-    stage('Install NodeJS') {
-        def nodeJSHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-        env.PATH = "${nodeJSHome}/bin:${env.PATH}"
-    }
+    docker {
+            image 'node:lts-bullseye-slim' 
+            args '-p 3000:3000' 
+        }
     stage('Build') {
         sh 'npm install'
     }
